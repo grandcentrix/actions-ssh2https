@@ -1,0 +1,17 @@
+name: ssh2https
+description: install ssh to https translation for git
+inputs:
+  token:
+    description: >
+      Personal access token (PAT) used to access https URLs.
+    default: ${{ github.token }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        git config --global url."https://x-access-token:${{ inputs.token }}@github.com/".insteadOf "ssh://git@github.com/"
+        git config --global --add url."https://x-access-token:${{ inputs.token }}@github.com/".insteadOf "ssh://git@github.com:"
+
+        git config --global --add url."https://x-access-token:${{ inputs.token }}@github.com/".insteadOf "git@github.com/"
+        git config --global --add url."https://x-access-token:${{ inputs.token }}@github.com/".insteadOf "git@github.com:"
